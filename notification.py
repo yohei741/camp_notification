@@ -107,7 +107,7 @@ for i, selected_month in enumerate(select_list):
 
 
     # 土曜はデフォでサーチ対象する
-    find_weekofday = "土"
+    find_weekofday = "金"
 
     # 土曜以外のサーチ対象日リスト （行けそうな日があれば、こちらに追加してください！！！！）
     selected_days = [
@@ -125,8 +125,7 @@ for i, selected_month in enumerate(select_list):
             ok_days.append(message)
 
 
-
-LINE_TOKEN="yYhSlyDKTy15J7ITUY5i9g3JT79CPONtCG6P9ZKYU9n" # TODO: 環境変数として埋め込む
+LINE_TOKEN=os.environ.get("LINE_TOKEN")
 LINE_NOTIFY_URL="https://notify-api.line.me/api/notify"
 
 # LINE通知を行う関数
