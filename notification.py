@@ -18,7 +18,7 @@ import re
 
 # 予約画面を Selenium で立ち上げ
 options = Options()
-options.add_argument('--headless') # コメントアウトすると、ブラウザ表示して操作するコマンド
+options.add_argument('--headless') # コメントアウトすると、ブラウザ表示され操作を確認できる
 browser = webdriver.Chrome(options=options)
 browser.get("https://fumotoppara.secure.force.com/")
 
@@ -107,7 +107,7 @@ for i, selected_month in enumerate(select_list):
 
 
     # 土曜はデフォでサーチ対象する
-    find_weekofday = "土"
+    find_weekofday = "金"
 
     # 土曜以外のサーチ対象日リスト （行けそうな日があれば、こちらに追加してください！！！！）
     selected_days = [
@@ -129,6 +129,7 @@ LINE_TOKEN=os.environ.get("LINE_TOKEN")
 LINE_NOTIFY_URL="https://notify-api.line.me/api/notify"
 
 # LINE通知を行う関数
+# こちらのコードを参照：　https://qiita.com/kutsurogi194/items/6b9c8d37b2b83fc2ce87
 def send_line_push(message):
     method = "POST"
     headers = {"Authorization": "Bearer %s" % LINE_TOKEN}
