@@ -107,7 +107,7 @@ for i, selected_month in enumerate(select_list):
 
 
     # 土曜はデフォでサーチ対象する
-    find_weekofday = "金"
+    find_weekofday = "土"
 
     # 土曜以外のサーチ対象日リスト （行けそうな日があれば、こちらに追加してください！！！！）
     selected_days = [
