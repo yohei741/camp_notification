@@ -1,3 +1,4 @@
 selenium==3.141.0
-chromedriver-binary==85.0.4183.87.0
+chromedriver-binary==94.0.4606.41.0
 python-dotenv==0.14.0
+beautifulsoup4==4.10.0
