@@ -116,11 +116,17 @@ for i, selected_month in enumerate(select_list):
         , "2021年9月25日"
     ]
 
+    # NG日リスト
+    ng_days = [
+            "2021年9月18日"
+    ]
+
 
     # すべての空きのある日にちをサーチ
     for x in range(len(l_preserve)):
         if ("○" in str(l_preserve[x][0]) or "△" in str(l_preserve[x][0])) and \
-                (l_weekofdays[x] == find_weekofday or f"{selected_month}{x+1}日" in selected_days):
+                (l_weekofdays[x] == find_weekofday or f"{selected_month}{x+1}日" in selected_days) and \
+                (f"{selected_month}{x+1}日" not in ng_days):
             message = f"{selected_month}{x+1}日({str(l_weekofdays[x])}曜)"
             ok_days.append(message)
 
