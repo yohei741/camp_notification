@@ -111,9 +111,6 @@ for i, selected_month in enumerate(select_list):
 
     # 土曜以外のサーチ対象日リスト （行けそうな日があれば、こちらに追加してください！！！！）
     selected_days = [
-        "2021年9月19日"
-        , "2021年9月24日"
-        , "2021年9月25日"
     ]
 
     # NG日リスト
