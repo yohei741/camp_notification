@@ -81,21 +81,16 @@ for i, selected_month in enumerate(select_list):
     l_2 = soup.select(".td_itemvalue.tbl_top_td3")
     
     # 日にちごとにリストとしてまとめ直し
+    # 20220109_バグ修正
     l_preserve = []
-    l=[]
+    l_tmp=[]
     cnt=0
-    for k in range(len(l_2)):
-        cnt+=1
-        if cnt>4:
-            l_preserve.append(l)
-            cnt=1
-            l=[]
-            l.append(l_2[k])
-        elif k == 120-1:
-            l.append(l_2[k])
-            l_preserve.append(l)
+    for i, k in enumerate(l_2, 1):
+        if i%4 != 0:
+            l_tmp.append(k)
         else:
-            l.append(l_2[k])
+            l_preserve.append(l_tmp)
+            l_tmp = []
 
 
     # 曜日だけのリストを作成
@@ -111,6 +106,16 @@ for i, selected_month in enumerate(select_list):
 
     # 土曜以外のサーチ対象日リスト （行けそうな日があれば、こちらに追加してください！！！！）
     selected_days = [
+        "2022年2月11日"
+        , "2022年3月20日"
+        , "2022年4月29日"
+        , "2022年5月1日"
+        , "2022年5月2日"
+        , "2022年5月3日"
+        , "2022年5月4日"
+        , "2022年5月5日"
+        , "2022年7月17日"
+        , "2022年1月10日"
     ]
 
     # NG日リスト
