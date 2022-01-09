@@ -116,7 +116,6 @@ for i, selected_month in enumerate(select_list):
         , "2022年5月4日"
         , "2022年5月5日"
         , "2022年7月17日"
-        , "2022年1月10日"
     ]
 
     # NG日リスト
