@@ -24,16 +24,17 @@ import datetime as dt
 
 # 日本語の曜日を取得する
 # https://qiita.com/_masa_u/items/e104d42bd6f200d3b959
-import datetime as dt
-import locale
-locale.setlocale(locale.LC_ALL, 'ja_JP.utf8') # LC_TIME → LC_ALL
+# import locale
+# locale.setlocale(locale.LC_ALL, 'ja_JP.utf8') # LC_TIME → LC_ALL
 
 
 
 # 予約画面を Selenium で立ち上げ
 options = Options()
-# options.add_argument('--headless') # コメントアウトすると、ブラウザ表示され操作を確認できる
-browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+options.add_argument('--headless') # コメントアウトすると、ブラウザ表示され操作を確認できる
+browser = webdriver.Chrome(options=options)
+# browser = webdriver.Chrome(ChromeDriverManager().install(), options=options) # localeライブラリで詰まったので切り戻し
+
 
 
 # 土曜以外のサーチ対象日リスト （行けそうな日があれば、こちらに追加してください！！！！）
@@ -197,7 +198,7 @@ for selected_month in months_l:
     month_word = int(month_word.replace('月', ''))
 
     for day, text in enumerate(l, 1):
-        if (dt.date(year_word, month_word, day).strftime('%A') == "土曜日" or f"{year_word}年{month_word}月{day}日" in selected_days) \
+        if (dt.date(year_word, month_word, day).strftime('%A') == "Saturday" or f"{year_word}年{month_word}月{day}日" in selected_days) \
                 and f"{year_word}年{month_word}月{day}日" not in ng_days \
                 and 0 <= (dt.date(year_word, month_word, day) - dt.date.today()).days < 60:
             if "満" not in str(text): 
