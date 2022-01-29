@@ -16,11 +16,11 @@ from selenium.webdriver.support.select import Select
 # 正規表現での抽出用
 import re
 
-# ChromeDriver(WebDriver)を自動更新する
-from webdriver_manager.chrome import ChromeDriverManager
-
 #曜日を判定
 import datetime as dt
+
+# ChromeDriver(WebDriver)を自動更新する
+from webdriver_manager.chrome import ChromeDriverManager
 
 # 日本語の曜日を取得する
 # https://qiita.com/_masa_u/items/e104d42bd6f200d3b959
