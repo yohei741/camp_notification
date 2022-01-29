@@ -26,7 +26,7 @@ import datetime as dt
 # https://qiita.com/_masa_u/items/e104d42bd6f200d3b959
 import datetime as dt
 import locale
-locale.setlocale(locale.LC_TIME, 'ja_JP.UTF-8')
+locale.setlocale(locale.LC_TIME, 'ja_JP.utf8')
 
 
 
