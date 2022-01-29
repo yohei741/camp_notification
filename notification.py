@@ -32,8 +32,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 # 予約画面を Selenium で立ち上げ
 options = Options()
 options.add_argument('--headless') # コメントアウトすると、ブラウザ表示され操作を確認できる
-browser = webdriver.Chrome(options=options)
-# browser = webdriver.Chrome(ChromeDriverManager().install(), options=options) # localeライブラリで詰まったので切り戻し
+# browser = webdriver.Chrome(options=options)
+browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
 
 
