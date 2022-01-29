@@ -2,3 +2,4 @@ selenium==3.141.0
 chromedriver-binary==97.0.4692.71.0 # Heroku側に合わせた
 python-dotenv==0.14.0
 beautifulsoup4==4.10.0
+webdriver_manager==3.5.2

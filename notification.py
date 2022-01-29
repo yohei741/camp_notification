@@ -9,19 +9,67 @@ import os
 from os.path import join, dirname
 # from dotenv import load_dotenv
 from bs4 import BeautifulSoup
+
 # プルダウンの選択
 from selenium.webdriver.support.select import Select
+
 # 正規表現での抽出用
 import re
+
+# ChromeDriver(WebDriver)を自動更新する
+from webdriver_manager.chrome import ChromeDriverManager
+
+#曜日を判定
+import datetime as dt
+
+# 日本語の曜日を取得する
+# https://qiita.com/_masa_u/items/e104d42bd6f200d3b959
+import datetime as dt
+import locale
+locale.setlocale(locale.LC_TIME, 'ja_JP.UTF-8')
+
 
 
 
 # 予約画面を Selenium で立ち上げ
 options = Options()
-options.add_argument('--headless') # コメントアウトすると、ブラウザ表示され操作を確認できる
-browser = webdriver.Chrome(options=options)
-browser.get("https://fumotoppara.secure.force.com/")
+# options.add_argument('--headless') # コメントアウトすると、ブラウザ表示され操作を確認できる
+browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
+
+# 土曜以外のサーチ対象日リスト （行けそうな日があれば、こちらに追加してください！！！！）
+selected_days = [
+    "2022年2月11日"
+    , "2022年3月20日"
+    , "2022年4月29日"
+    , "2022年5月1日"
+    , "2022年5月2日"
+    , "2022年5月3日"
+    , "2022年5月4日"
+    , "2022年5月5日"
+    , "2022年7月17日"
+]
+
+# NG日リスト
+ng_days = [
+        "2022年1月15日"
+        , "2022年1月29日"
+        , "2022年1月22日"
+        , "2022年2月5日"
+        , "2022年2月11日"
+        , "2022年2月12日"
+        , "2022年2月19日"
+        , "2022年2月26日"
+        , "2022年3月11日"
+        , "2022年3月19日"
+        , "2022年3月20日"
+        , "2022年3月27日"
+]
+
+
+# ここから：　ふもとっぱらキャンプ場 --------
+
+browser.get("https://fumotoppara.secure.force.com/")
 
 # プルダウンから月の取得
 dropdown = browser.find_element_by_id('f_nengetsu')
@@ -33,6 +81,8 @@ select_list = []
 for option in all_options:
     select_list.append(option.text)
 
+# 土曜はデフォでサーチ対象する
+find_weekofday = "土"
 
 # 予約OKな日程を入れるリスト
 ok_days = []
@@ -102,38 +152,6 @@ for i, selected_month in enumerate(select_list):
     # assert len(l_days) == len(l_preserve) == len(l_weekofdays)
 
 
-    # 土曜はデフォでサーチ対象する
-    find_weekofday = "土"
-
-    # 土曜以外のサーチ対象日リスト （行けそうな日があれば、こちらに追加してください！！！！）
-    selected_days = [
-        "2022年2月11日"
-        , "2022年3月20日"
-        , "2022年4月29日"
-        , "2022年5月1日"
-        , "2022年5月2日"
-        , "2022年5月3日"
-        , "2022年5月4日"
-        , "2022年5月5日"
-        , "2022年7月17日"
-    ]
-
-    # NG日リスト
-    ng_days = [
-            "2022年1月15日"
-            , "2022年1月22日"
-            , "2022年2月5日"
-            , "2022年2月11日"
-            , "2022年2月12日"
-            , "2022年2月19日"
-            , "2022年2月26日"
-            , "2022年3月11日"
-            , "2022年3月19日"
-            , "2022年3月20日"
-            , "2022年3月27日"
-    ]
-
-
     # すべての空きのある日にちをサーチ
     for x in range(len(l_preserve)):
         if ("○" in str(l_preserve[x][0]) or "△" in str(l_preserve[x][0])) and \
@@ -141,6 +159,52 @@ for i, selected_month in enumerate(select_list):
                 (f"{selected_month}{x+1}日" not in ng_days):
             message = f"{selected_month}{x+1}日({str(l_weekofdays[x])}曜)"
             ok_days.append(message)
+
+
+# ここまで：　ふもとっぱらキャンプ場 --------
+
+
+# ここから：　浩庵キャンプ場 --------
+
+browser.get("https://kouan-motosuko.com/reserve/Reserve/input/")
+
+# ブラウザに表示されている HTML から BeautifulSoup オブジェクトを作りパースする
+soup = BeautifulSoup(browser.page_source, 'html.parser')
+
+# 年月の取得
+p = soup.find("h3").text
+year_word = re.search(r'\d*年', p).group()
+month_word = re.search(r'\d*月', p).group()
+year_word = int(year_word.replace('年', ''))
+month_word = int(month_word.replace('月', ''))
+
+# 次月、次々月の文字列を取得
+months_l = [str(month_word).zfill(2), str(month_word+1).zfill(2), str(month_word+2).zfill(2)]
+
+# 予約OKな日程を入れるリスト
+ok_list_koan = []
+
+for selected_month in months_l:
+
+    browser.get(f"https://kouan-motosuko.com/reserve/Reserve/input/?type=camp&ym=2022{selected_month}")
+    soup = BeautifulSoup(browser.page_source, 'html.parser')
+    l = soup.select("[class='form-group']")
+
+    # 年月の取得
+    p = soup.find("h3").text
+    year_word = re.search(r'\d*年', p).group()
+    month_word = re.search(r'\d*月', p).group()
+    year_word = int(year_word.replace('年', ''))
+    month_word = int(month_word.replace('月', ''))
+
+    for day, text in enumerate(l, 1):
+        if (dt.date(year_word, month_word, day).strftime('%A') == "土曜日" or f"{year_word}年{month_word}月{day}日" in selected_days) \
+                and f"{year_word}年{month_word}月{day}日" not in ng_days \
+                and 0 <= (dt.date(year_word, month_word, day) - dt.date.today()).days < 60:
+            if "満" not in str(text): 
+                ok_list_koan.append(f"{month_word}月{day}日({dt.date(year_word, month_word, day).strftime('%a')})")
+
+# ここまで：　浩庵キャンプ場 --------
 
 
 LINE_TOKEN=os.environ.get("LINE_TOKEN")
@@ -163,10 +227,11 @@ def send_line_push(message):
 
 
 # 通知表示の修正
-ok_days_parse = "\n".join(ok_days)
-ok_days_parse = "\n\n空きが出ましたよ！\n\n" + ok_days_parse + "\n\n▼いますぐ予約！\nhttps://fumotoppara.secure.force.com/"
+ok_list_fumoto = "\n".join(ok_days)
+ok_list_koan_parse = "\n".join(ok_list_koan)
+ok_days_parse = "\n\n空きが出ましたよ！\n\n\n▼ふもとっぱらキャンプ場\n" + ok_list_fumoto + "\n\n▼浩庵キャンプ場\n" + ok_list_koan_parse + "\n"
 
 
 # 空きがあればLINE通知する
-if len(ok_days) != 0:
+if len(ok_days)+len(ok_list_koan) != 0:
     send_line_push(ok_days_parse)
