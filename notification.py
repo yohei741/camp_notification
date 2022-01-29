@@ -235,3 +235,4 @@ ok_days_parse = "\n\n空きが出ましたよ！\n\n\n▼ふもとっぱらキ�
 # 空きがあればLINE通知する
 if len(ok_days)+len(ok_list_koan) != 0:
     send_line_push(ok_days_parse)
+
