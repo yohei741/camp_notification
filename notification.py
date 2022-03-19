@@ -67,8 +67,14 @@ ng_days = [
         , "2022年3月20日"
         , "2022年3月26日"
         , "2022年3月27日"
+        , "2022年4月2日"
+        , "2022年4月9日"
+        , "2022年4月15日"
+        , "2022年4月16日"
         , "2022年5月1日"
         , "2022年5月2日"
+        , "2022年5月5日"
+        , "2022年5月28日"
 ]
 
 # Beautiful Soup でHTMLの中からHTML要素を取得：　https://gammasoft.jp/blog/difference-find-and-select-in-beautiful-soup-of-python/
