@@ -221,10 +221,11 @@ def send_line_push(message):
 # 通知表示の修正
 ok_list_fumoto = "\n".join(ok_days)
 # ok_list_koan_parse = "\n".join(ok_list_koan) # 浩庵キャンプ場いったん停止（2022/5/15）
-ok_days_parse = "\n\n空きが出ましたよ！\n\n\n▼ふもとっぱらキャンプ場\n" + ok_list_fumoto + "\n\n▼浩庵キャンプ場\n" + ok_list_koan_parse + "\n"
+ok_days_parse = "\n\n空きが出ましたよ！\n\n\n▼ふもとっぱらキャンプ場\n" + ok_list_fumoto 
+                                    # + "\n\n▼浩庵キャンプ場\n" + ok_list_koan_parse + "\n"
 
 
 # 空きがあればLINE通知する
-if len(ok_days)+len(ok_list_koan) != 0:
+if len(ok_days) != 0: # +len(ok_list_koan)
     send_line_push(ok_days_parse)
 
