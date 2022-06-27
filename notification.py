@@ -50,11 +50,11 @@ selected_days = [
 
 # NG日リスト
 ng_days = [
-        "2022年5月21日"
-        , "2022年5月28日"
-        , "2022年6月11日"
-        , "2022年7月9日"
+        "2022年7月9日"
         , "2022年7月17日"
+        , "2022年8月11日"
+        , "2022年8月12日"
+        , "2022年8月13日"
 ]
 
 # Beautiful Soup でHTMLの中からHTML要素を取得：　https://gammasoft.jp/blog/difference-find-and-select-in-beautiful-soup-of-python/
